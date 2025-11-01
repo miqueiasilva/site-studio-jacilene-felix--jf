@@ -25,10 +25,10 @@ export const Hero: React.FC = () => {
           <a href="https://www.salao99.com.br/studio-jacilene-felix" target="_blank" rel="noopener noreferrer" className="bg-[#795548] text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#6b4a3e] hover:-translate-y-0.5 transform transition-all duration-300 ease-in-out w-full sm:w-auto">
             Agendar Agora
           </a>
-          <button className="bg-white/5 border border-gray-300 text-white px-8 py-3 rounded-full backdrop-blur-sm hover:bg-white/20 hover:border-white hover:-translate-y-0.5 transform transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
+          <a href="https://api.whatsapp.com/send/?phone=5581995685910" target="_blank" rel="noopener noreferrer" className="bg-white/5 border border-gray-300 text-white px-8 py-3 rounded-full backdrop-blur-sm hover:bg-white/20 hover:border-white hover:-translate-y-0.5 transform transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
             <WhatsAppIcon className="w-5 h-5" />
-            <span>Falar com a IA no WhatsApp</span>
-          </button>
+            <span>Falar no WhatsApp</span>
+          </a>
         </div>
       </div>
     </section>
