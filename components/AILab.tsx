@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI } from '@google/genai';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { GoogleGenAI, Chat } from '@google/genai';
 import { BotIcon, SendIcon } from './icons';
 
 interface AILabProps {
@@ -18,23 +18,31 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Fix: Per Gemini API guidelines, use process.env.API_KEY.
-  // The value is injected by the build process (vite.config.ts).
-  // @ts-ignore - 'process' is not defined in browser scope but is replaced by Vite.
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  
-  const systemInstruction = `Você é a assistente virtual do Studio Jacilene Félix, um estúdio de beleza especializado em micropigmentação de sobrancelhas e lábios, Brow Lamination, e outros tratamentos estéticos. Seu nome é Jaci. Você deve ser extremamente amigável, profissional e prestativa. Use emojis para deixar a conversa mais leve. Sua principal função é ajudar as clientes, respondendo a perguntas sobre os serviços, cuidados, preços e agendamentos. Sempre que for perguntada sobre agendamentos, direcione a cliente para o link: https://www.salao99.com.br/studio-jacilene-felix. Mantenha as respostas concisas e diretas.`;
+  // @ts-ignore - 'process' is not defined but is replaced by Vite.
+  const apiKey = process.env.API_KEY;
 
-  const chat = ai.chats.create({
-    model: 'gemini-2.5-flash',
-    config: {
-      systemInstruction,
-    },
-    history: history.map(entry => ({
-      role: entry.role,
-      parts: [{ text: entry.parts }],
-    })),
-  });
+  const isKeyValid = useMemo(() => apiKey && apiKey.trim() !== '' && apiKey !== 'undefined', [apiKey]);
+
+  const chatRef = useRef<Chat | null>(null);
+
+  // Initialize chat instance only when the key is valid and the modal opens
+  useEffect(() => {
+    if (isOpen && isKeyValid && !chatRef.current) {
+      const ai = new GoogleGenAI({ apiKey });
+      const systemInstruction = `Você é a assistente virtual do Studio Jacilene Félix, um estúdio de beleza especializado em micropigmentação de sobrancelhas e lábios, Brow Lamination, e outros tratamentos estéticos. Seu nome é Jaci. Você deve ser extremamente amigável, profissional e prestativa. Use emojis para deixar a conversa mais leve. Sua principal função é ajudar as clientes, respondendo a perguntas sobre os serviços, cuidados, preços e agendamentos. Sempre que for perguntada sobre agendamentos, direcione a cliente para o link: https://www.salao99.com.br/studio-jacilene-felix. Mantenha as respostas concisas e diretas.`;
+      
+      chatRef.current = ai.chats.create({
+        model: 'gemini-2.5-flash',
+        config: { systemInstruction },
+      });
+      // Set initial greeting
+      setHistory([{ role: 'model', parts: 'Olá! 👋 Sou a Jaci, sua assistente virtual. Como posso te ajudar hoje?' }]);
+    } else if (!isOpen) {
+        // Reset history and chat instance when modal is closed
+        setHistory([]);
+        chatRef.current = null;
+    }
+  }, [isOpen, isKeyValid, apiKey]);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -43,21 +51,20 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     scrollToBottom();
   }, [history]);
-  
+
   useEffect(() => {
     if (isOpen) {
-        document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
     } else {
-        document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset';
     }
     return () => {
-        document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset';
     };
-}, [isOpen]);
-
+  }, [isOpen]);
 
   const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || !chatRef.current) return;
 
     const userMessage: ChatEntry = { role: 'user', parts: input };
     setHistory(prev => [...prev, userMessage]);
@@ -65,10 +72,9 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
     setIsLoading(true);
 
     try {
-      const result = await chat.sendMessageStream({ message: input });
+      const result = await chatRef.current.sendMessageStream({ message: input });
       let text = '';
       
-      // Add an empty model message to start streaming into
       setHistory(prev => [...prev, { role: 'model', parts: '' }]);
 
       for await (const chunk of result) {
@@ -103,27 +109,41 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
         </header>
         
         <main className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-          {history.map((entry, index) => (
-            <div key={index} className={`flex items-start gap-3 ${entry.role === 'user' ? 'justify-end' : ''}`}>
-              {entry.role === 'model' && <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#795548] flex items-center justify-center text-white"><BotIcon className="w-5 h-5"/></div>}
-              <div className={`max-w-[80%] rounded-lg px-4 py-2 ${entry.role === 'user' ? 'bg-[#795548] text-white rounded-br-none' : 'bg-gray-200 text-[#312a27] rounded-bl-none'}`}>
-                <p className="text-sm whitespace-pre-wrap">{entry.parts}</p>
+          {!isKeyValid ? (
+            <div className="flex flex-col items-center justify-center h-full text-center p-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
               </div>
+              <h3 className="text-lg font-semibold text-gray-800">Erro de Configuração</h3>
+              <p className="text-gray-600 text-sm max-w-sm">
+                  O assistente de IA não pode ser iniciado. A chave de API está ausente ou inválida. Verifique as configurações de "Secrets" no repositório do GitHub.
+              </p>
             </div>
-          ))}
-          {isLoading && history[history.length - 1].role === 'user' && (
-             <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#795548] flex items-center justify-center text-white"><BotIcon className="w-5 h-5"/></div>
-                <div className="max-w-[80%] rounded-lg px-4 py-2 bg-gray-200 text-[#312a27] rounded-bl-none">
-                   <div className="flex items-center gap-2">
-                       <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></span>
-                       <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></span>
-                       <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></span>
-                   </div>
+          ) : (
+            <>
+              {history.map((entry, index) => (
+                <div key={index} className={`flex items-start gap-3 ${entry.role === 'user' ? 'justify-end' : ''}`}>
+                  {entry.role === 'model' && <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#795548] flex items-center justify-center text-white"><BotIcon className="w-5 h-5"/></div>}
+                  <div className={`max-w-[80%] rounded-lg px-4 py-2 ${entry.role === 'user' ? 'bg-[#795548] text-white rounded-br-none' : 'bg-gray-200 text-[#312a27] rounded-bl-none'}`}>
+                    <p className="text-sm whitespace-pre-wrap">{entry.parts}</p>
+                  </div>
                 </div>
-            </div>
+              ))}
+              {isLoading && history[history.length - 1].role === 'user' && (
+                 <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#795548] flex items-center justify-center text-white"><BotIcon className="w-5 h-5"/></div>
+                    <div className="max-w-[80%] rounded-lg px-4 py-2 bg-gray-200 text-[#312a27] rounded-bl-none">
+                       <div className="flex items-center gap-2">
+                           <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></span>
+                           <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></span>
+                           <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></span>
+                       </div>
+                    </div>
+                </div>
+              )}
+              <div ref={chatEndRef} />
+            </>
           )}
-          <div ref={chatEndRef} />
         </main>
         
         <footer className="p-4 border-t bg-white">
@@ -133,11 +153,11 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Digite sua mensagem..."
-              className="w-full p-3 bg-gray-100 border border-transparent rounded-lg focus:ring-2 focus:ring-[#a1887f] focus:bg-white transition"
-              disabled={isLoading}
+              placeholder={!isKeyValid ? "Assistente indisponível" : "Digite sua mensagem..."}
+              className="w-full p-3 bg-gray-100 border border-transparent rounded-lg focus:ring-2 focus:ring-[#a1887f] focus:bg-white transition disabled:bg-gray-200"
+              disabled={isLoading || !isKeyValid}
             />
-            <button onClick={handleSendMessage} disabled={isLoading || !input.trim()} className="flex-shrink-0 w-12 h-12 bg-[#795548] text-white rounded-full flex items-center justify-center hover:bg-[#6b4a3e] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
+            <button onClick={handleSendMessage} disabled={isLoading || !input.trim() || !isKeyValid} className="flex-shrink-0 w-12 h-12 bg-[#795548] text-white rounded-full flex items-center justify-center hover:bg-[#6b4a3e] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
               <SendIcon className="w-6 h-6"/>
             </button>
           </div>
