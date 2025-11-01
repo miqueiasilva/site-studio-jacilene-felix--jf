@@ -1,0 +1,9 @@
+{
+  "name": "Studio Jacilene Félix - Beauty & Aesthetics",
+  "description": "A sophisticated website for a beauty studio specializing in micropigmentation and aesthetic treatments, featuring an AI Lab for personalized consultations, image/video generation and editing, and real-time conversations powered by Google Gemini.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation",
+    "camera"
+  ]
+}
