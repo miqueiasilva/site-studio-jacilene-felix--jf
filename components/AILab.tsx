@@ -18,7 +18,10 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+  // Fix: Per Gemini API guidelines, use process.env.API_KEY.
+  // The value is injected by the build process (vite.config.ts).
+  // @ts-ignore - 'process' is not defined in browser scope but is replaced by Vite.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const systemInstruction = `Você é a assistente virtual do Studio Jacilene Félix, um estúdio de beleza especializado em micropigmentação de sobrancelhas e lábios, Brow Lamination, e outros tratamentos estéticos. Seu nome é Jaci. Você deve ser extremamente amigável, profissional e prestativa. Use emojis para deixar a conversa mais leve. Sua principal função é ajudar as clientes, respondendo a perguntas sobre os serviços, cuidados, preços e agendamentos. Sempre que for perguntada sobre agendamentos, direcione a cliente para o link: https://www.salao99.com.br/studio-jacilene-felix. Mantenha as respostas concisas e diretas.`;
 
