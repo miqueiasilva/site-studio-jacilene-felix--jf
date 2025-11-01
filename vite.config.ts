@@ -4,8 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/site-studio-jacilene-felix-jf/',
-  define: {
-    'process.env.API_KEY': JSON.stringify(process.env.VITE_API_KEY)
-  }
+  base: '/site-studio-jacilene-felix--jf/',
 })
