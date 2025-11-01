@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 const staticTestimonials = [
   {
-    name: 'Ana Clara',
+    name: 'Fernanda Lima',
     service: 'Micropigmentação Fio a Fio',
     text: 'O trabalho da Jacilene foi transformador! Minhas sobrancelhas ficaram perfeitas, super naturais. O cuidado e o profissionalismo de toda a equipe são incríveis. Recomendo de olhos fechados!'
   },
   {
-    name: 'Fernanda Lima',
-    service: 'Brow Lamination',
-    text: 'Estou apaixonada pelo resultado do Brow Lamination! Deixou meu olhar mais expressivo e as sobrancelhas super alinhadas. O ambiente do studio é maravilhoso e o atendimento impecável.'
+    name: 'Camila Santos',
+    service: 'Micropigmentação Labial',
+    text: 'Amei o resultado da micropigmentação labial! A cor ficou super natural e o procedimento foi muito tranquilo. A equipe é extremamente atenciosa e o studio é impecável. Superou minhas expectativas!'
   },
   {
-    name: 'Juliana Paes',
-    service: 'Micropigmentação Labial',
-    text: 'Amei o resultado! Meus lábios ficaram com uma cor linda e super natural. A equipe é muito atenciosa e o procedimento foi bem tranquilo. Com certeza voltarei!'
+    name: 'Beatriz Almeida',
+    service: 'Brow Lamination',
+    text: 'Estou apaixonada pelo resultado do Brow Lamination! Deixou meu olhar mais expressivo e as sobrancelhas super alinhadas. O ambiente do studio é maravilhoso e o atendimento impecável.'
   }
 ];
 
@@ -58,7 +58,7 @@ export const Testimonials: React.FC = () => {
             </div>
           </div>
            <button onClick={goToPrevious} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 rounded-full p-2 hover:bg-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#a1887f]">
-             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#312a27]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+             <svg xmlns="http://www.w.org/2000/svg" className="h-6 w-6 text-[#312a27]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
           </button>
           <button onClick={goToNext} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 rounded-full p-2 hover:bg-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#a1887f]">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#312a27]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
