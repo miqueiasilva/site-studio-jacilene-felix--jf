@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 
-// Trigger comment for deployment
+// Re-deploy trigger to apply API key secret
 // Lazy load components for code-splitting and faster initial load
 const Services = lazy(() => import('./components/Services').then(module => ({ default: module.Services })));
 const Team = lazy(() => import('./components/Team').then(module => ({ default: module.Team })));
