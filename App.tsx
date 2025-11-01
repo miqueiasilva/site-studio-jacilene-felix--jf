@@ -84,7 +84,7 @@ export default function App() {
       <Header scrollToSection={scrollToSection} activeSection={activeSection} />
       <main>
         <div ref={sections.home}>
-          <Hero openAILab={openAILab} />
+          <Hero />
         </div>
         <Suspense fallback={<LoadingFallback />}>
           <div ref={sections.servicos}>
