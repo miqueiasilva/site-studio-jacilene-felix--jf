@@ -6,11 +6,16 @@ import { Hero } from './components/Hero';
 const Services = lazy(() => import('./components/Services').then(module => ({ default: module.Services })));
 const Team = lazy(() => import('./components/Team').then(module => ({ default: module.Team })));
 const Results = lazy(() => import('./components/Results').then(module => ({ default: module.Results })));
+const OtherServices = lazy(() => import('./components/OtherServices').then(module => ({ default: module.OtherServices })));
+const Testimonials = lazy(() => import('./components/Testimonials').then(module => ({ default: module.Testimonials })));
 const CareTips = lazy(() => import('./components/CareTips').then(module => ({ default: module.CareTips })));
 const FAQ = lazy(() => import('./components/FAQ').then(module => ({ default: module.FAQ })));
 const CallToAction = lazy(() => import('./components/CallToAction').then(module => ({ default: module.CallToAction })));
 const Contact = lazy(() => import('./components/Contact').then(module => ({ default: module.Contact })));
 const Footer = lazy(() => import('./components/Footer').then(module => ({ default: module.Footer })));
+// const AILab = lazy(() => import('./components/AILab').then(module => ({ default: module.AILab })));
+// const FloatingButton = lazy(() => import('./components/FloatingButton').then(module => ({ default: module.FloatingButton })));
+
 
 const LoadingFallback = () => (
   <div className="flex justify-center items-center py-20 min-h-[50vh]">
@@ -26,6 +31,8 @@ export default function App() {
     servicos: useRef<HTMLDivElement>(null),
     profissionais: useRef<HTMLDivElement>(null),
     resultados: useRef<HTMLDivElement>(null),
+    outrosServicos: useRef<HTMLDivElement>(null),
+    depoimentos: useRef<HTMLDivElement>(null),
     faq: useRef<HTMLDivElement>(null),
     contato: useRef<HTMLDivElement>(null),
   };
@@ -83,6 +90,12 @@ export default function App() {
           </div>
           <div ref={sections.resultados}>
             <Results />
+          </div>
+          <div ref={sections.outrosServicos}>
+            <OtherServices />
+          </div>
+          <div ref={sections.depoimentos}>
+            <Testimonials />
           </div>
           <CareTips />
           <div ref={sections.faq}>

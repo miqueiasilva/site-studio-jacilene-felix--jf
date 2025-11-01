@@ -22,6 +22,8 @@ export const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection }
     { name: 'Serviços', section: 'servicos' },
     { name: 'Profissionais', section: 'profissionais' },
     { name: 'Resultados', section: 'resultados' },
+    { name: 'Bem-Estar', section: 'outrosServicos' },
+    { name: 'Depoimentos', section: 'depoimentos' },
     { name: 'FAQ', section: 'faq' },
     { name: 'Contato', section: 'contato' },
   ];

@@ -5,5 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/site-studio-jacilene-felix-jf/',
-  // The 'define' block for the API key has been removed as all AI features are currently disabled for testing.
+  define: {
+    'process.env.API_KEY': JSON.stringify(process.env.VITE_API_KEY)
+  }
 })
