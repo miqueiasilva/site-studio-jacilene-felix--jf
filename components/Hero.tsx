@@ -1,10 +1,14 @@
 import React from 'react';
-import { WhatsAppIcon } from './icons';
+import { SparklesIcon } from './icons';
+
+interface HeroProps {
+  openAILab: () => void;
+}
 
 const ORIGINAL_HERO_IMAGE_URL = 'https://i.ibb.co/XrtcD83R/Untitled-design-1.png';
 const HERO_IMAGE_URL = `https://images.weserv.nl/?url=${encodeURIComponent(ORIGINAL_HERO_IMAGE_URL)}&w=1920&q=80&output=webp`;
 
-export const Hero: React.FC = () => {
+export const Hero: React.FC<HeroProps> = ({ openAILab }) => {
   return (
     <section 
       className="relative h-screen overflow-hidden flex items-center justify-center text-white"
@@ -25,10 +29,10 @@ export const Hero: React.FC = () => {
           <a href="https://www.salao99.com.br/studio-jacilene-felix" target="_blank" rel="noopener noreferrer" className="bg-[#795548] text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#6b4a3e] hover:-translate-y-0.5 transform transition-all duration-300 ease-in-out w-full sm:w-auto">
             Agendar Agora
           </a>
-          <a href="https://api.whatsapp.com/send/?phone=5581995685910" target="_blank" rel="noopener noreferrer" className="bg-white/5 border border-gray-300 text-white px-8 py-3 rounded-full backdrop-blur-sm hover:bg-white/20 hover:border-white hover:-translate-y-0.5 transform transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
-            <WhatsAppIcon className="w-5 h-5" />
-            <span>Falar no WhatsApp</span>
-          </a>
+          <button onClick={openAILab} className="bg-white/5 border border-gray-300 text-white px-8 py-3 rounded-full backdrop-blur-sm hover:bg-white/20 hover:border-white hover:-translate-y-0.5 transform transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
+            <SparklesIcon className="w-5 h-5" />
+            <span>Falar com a IA</span>
+          </button>
         </div>
       </div>
     </section>

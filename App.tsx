@@ -14,8 +14,8 @@ const FAQ = lazy(() => import('./components/FAQ').then(module => ({ default: mod
 const CallToAction = lazy(() => import('./components/CallToAction').then(module => ({ default: module.CallToAction })));
 const Contact = lazy(() => import('./components/Contact').then(module => ({ default: module.Contact })));
 const Footer = lazy(() => import('./components/Footer').then(module => ({ default: module.Footer })));
-// const AILab = lazy(() => import('./components/AILab').then(module => ({ default: module.AILab })));
-// const FloatingButton = lazy(() => import('./components/FloatingButton').then(module => ({ default: module.FloatingButton })));
+const AILab = lazy(() => import('./components/AILab').then(module => ({ default: module.AILab })));
+const FloatingButton = lazy(() => import('./components/FloatingButton').then(module => ({ default: module.FloatingButton })));
 
 
 const LoadingFallback = () => (
@@ -26,6 +26,10 @@ const LoadingFallback = () => (
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isAILabOpen, setIsAILabOpen] = useState(false);
+
+  const openAILab = () => setIsAILabOpen(true);
+  const closeAILab = () => setIsAILabOpen(false);
 
   const sections = {
     home: useRef<HTMLDivElement>(null),
@@ -80,7 +84,7 @@ export default function App() {
       <Header scrollToSection={scrollToSection} activeSection={activeSection} />
       <main>
         <div ref={sections.home}>
-          <Hero />
+          <Hero openAILab={openAILab} />
         </div>
         <Suspense fallback={<LoadingFallback />}>
           <div ref={sections.servicos}>
@@ -102,7 +106,7 @@ export default function App() {
           <div ref={sections.faq}>
             <FAQ />
           </div>
-          <CallToAction />
+          <CallToAction openAILab={openAILab} />
           <div ref={sections.contato}>
             <Contact />
           </div>
@@ -110,6 +114,8 @@ export default function App() {
       </main>
       <Suspense fallback={null}>
         <Footer />
+        <FloatingButton openAILab={openAILab} />
+        {isAILabOpen && <AILab isOpen={isAILabOpen} onClose={closeAILab} />}
       </Suspense>
     </div>
   );

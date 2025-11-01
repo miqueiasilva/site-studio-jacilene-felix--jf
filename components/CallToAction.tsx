@@ -1,8 +1,13 @@
 
-import React from 'react';
-import { WhatsAppIcon } from './icons';
 
-export const CallToAction: React.FC = () => {
+import React from 'react';
+import { SparklesIcon } from './icons';
+
+interface CallToActionProps {
+  openAILab: () => void;
+}
+
+export const CallToAction: React.FC<CallToActionProps> = ({ openAILab }) => {
   return (
     <section className="py-20 bg-[#f7f5f2]">
       <div className="container mx-auto px-4 text-center">
@@ -14,9 +19,9 @@ export const CallToAction: React.FC = () => {
           <a href="https://www.salao99.com.br/studio-jacilene-felix" target="_blank" rel="noopener noreferrer" className="bg-transparent border border-[#795548] text-[#795548] px-8 py-3 rounded-full hover:bg-[#795548] hover:text-white transition-all duration-300 w-full sm:w-auto">
             Agendar Consulta
           </a>
-          <button className="bg-[#795548] text-white px-8 py-3 rounded-full hover:bg-[#6b4a3e] transition-colors duration-300 flex items-center justify-center gap-2 w-full sm:w-auto">
-            <WhatsAppIcon className="w-5 h-5" />
-            <span>WhatsApp IA</span>
+          <button onClick={openAILab} className="bg-[#795548] text-white px-8 py-3 rounded-full hover:bg-[#6b4a3e] transition-colors duration-300 flex items-center justify-center gap-2 w-full sm:w-auto">
+            <SparklesIcon className="w-5 h-5" />
+            <span>Falar com a IA</span>
           </button>
         </div>
       </div>
