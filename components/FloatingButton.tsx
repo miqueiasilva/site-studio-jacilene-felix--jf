@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SparklesIcon } from './icons';
+import { BotIcon } from './icons';
 
 interface FloatingButtonProps {
     openAILab: () => void;
@@ -25,12 +25,17 @@ export const FloatingButton: React.FC<FloatingButtonProps> = ({ openAILab }) => 
     return (
         <button
             onClick={openAILab}
-            className={`fixed bottom-6 right-6 w-16 h-16 bg-[#795548] text-white rounded-full shadow-lg flex items-center justify-center transform transition-all duration-300 ease-in-out hover:bg-[#6b4a3e] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a1887f] ${
+            className={`group fixed bottom-6 right-6 bg-[#795548] text-white rounded-full shadow-lg flex items-center h-16 w-16 justify-center transition-all duration-300 ease-in-out hover:w-64 hover:justify-start hover:pl-4 hover:bg-[#6b4a3e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a1887f] ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
-            aria-label="Abrir assistente virtual"
+            aria-label="Tire suas dúvidas com a IA"
         >
-            <SparklesIcon className="w-8 h-8" />
+            <div className="flex-shrink-0">
+                <BotIcon className="w-8 h-8" />
+            </div>
+            <span className="ml-0 group-hover:ml-3 font-semibold whitespace-nowrap max-w-0 overflow-hidden group-hover:max-w-full transition-all duration-300 ease-in-out">
+                Dúvidas? Fale com a IA
+            </span>
         </button>
     );
 };

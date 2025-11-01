@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { SparklesIcon } from './icons';
+import { BotIcon } from './icons';
 
 interface CallToActionProps {
   openAILab: () => void;
@@ -20,8 +20,8 @@ export const CallToAction: React.FC<CallToActionProps> = ({ openAILab }) => {
             Agendar Consulta
           </a>
           <button onClick={openAILab} className="bg-[#795548] text-white px-8 py-3 rounded-full hover:bg-[#6b4a3e] transition-colors duration-300 flex items-center justify-center gap-2 w-full sm:w-auto">
-            <SparklesIcon className="w-5 h-5" />
-            <span>Falar com a IA</span>
+            <BotIcon className="w-5 h-5" />
+            <span>Tire suas dúvidas com a IA</span>
           </button>
         </div>
       </div>

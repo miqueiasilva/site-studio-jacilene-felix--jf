@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { BotIcon, SendIcon, SparklesIcon } from './icons';
+import { BotIcon, SendIcon } from './icons';
 
 interface AILabProps {
   isOpen: boolean;
@@ -91,7 +91,7 @@ export const AILab: React.FC<AILabProps> = ({ isOpen, onClose }) => {
       <div className="bg-white rounded-lg shadow-2xl w-full max-w-lg h-[80vh] flex flex-col animate-slide-up" onClick={(e) => e.stopPropagation()}>
         <header className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-3">
-            <SparklesIcon className="w-6 h-6 text-[#795548]" />
+            <BotIcon className="w-6 h-6 text-[#795548]" />
             <h2 className="text-xl font-serif text-[#312a27]">Assistente Virtual Jaci</h2>
           </div>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-800" aria-label="Fechar">
