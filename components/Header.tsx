@@ -20,10 +20,8 @@ export const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection }
   const navLinks = [
     { name: 'Home', section: 'home' },
     { name: 'Serviços', section: 'servicos' },
-    { name: 'Bem-Estar', section: 'outrosServicos' },
     { name: 'Profissionais', section: 'profissionais' },
     { name: 'Resultados', section: 'resultados' },
-    { name: 'Depoimentos', section: 'depoimentos' },
     { name: 'FAQ', section: 'faq' },
     { name: 'Contato', section: 'contato' },
   ];
