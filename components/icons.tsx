@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 type IconProps = {
@@ -65,6 +66,12 @@ export const PostCareIcon: React.FC<IconProps> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.884l-7.884-7.884a1.998 1.998 0 010-2.828l7.884-7.884a1.998 1.998 0 012.828 0l7.884 7.884a1.998 1.998 0 010 2.828L12 21.884z" />
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v6m-3-3h6" />
+    </svg>
+);
+
+export const ShieldCheckIcon: React.FC<IconProps> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.917l9-4.053 9 4.053a12.02 12.02 0 00-2.618-11.977z" />
     </svg>
 );
 
