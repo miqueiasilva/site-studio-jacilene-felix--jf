@@ -41,7 +41,7 @@ export const Contact: React.FC = () => {
               <div>
                 <h3 className="text-lg font-semibold">Horário de Funcionamento</h3>
                 <p className="text-gray-600">Segunda a Sexta: 8h às 18h</p>
-                <p className="text-gray-600">Sábado: 8h às 16h</p>
+                <p className="text-gray-600">Sábado: 8h às 17h</p>
                 <p className="text-gray-600">Domingo: Fechado</p>
               </div>
             </div>
