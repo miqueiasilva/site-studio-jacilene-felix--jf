@@ -39,8 +39,8 @@ const services = [
     description: 'Tratamento avançado para vasos e rejuvenescimento da pele com tecnologia de ponta.',
     tags: ['Rejuvenescimento', 'Vasos', 'Pele Lisa'],
     duration: '1-2 horas',
-    price: 'R$ 349,90',
-    installments: 'Sessão',
+    price: 'a partir de R$ 250,00',
+    installments: 'Por sessão',
     image: 'https://i.ibb.co/5WqdHtF4/Tratamento-de-estria-1024x642.png'
   },
   {
