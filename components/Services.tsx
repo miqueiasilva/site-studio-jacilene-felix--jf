@@ -30,7 +30,7 @@ const services = [
     tags: ['Alinhamento', 'Fixação', 'Durabilidade'],
     duration: '1 hora',
     price: 'R$ 99,90',
-    installments: 'Com tintura R$ 120,00',
+    installments: 'Com tintura R$ 140,00',
     image: 'https://i.ibb.co/WLRjLzN/ee4544495cd8267c.png'
   },
    {
@@ -49,8 +49,8 @@ const services = [
     description: 'Remoção a laser segura e eficaz de micropigmentação e tatuagens com resultados visíveis.',
     tags: ['Laser', 'Segurança', 'Resultados'],
     duration: '30-60 min',
-    price: 'R$ 199,90',
-    installments: 'Sessão',
+    price: 'a partir de R$ 250,00',
+    installments: 'Tatuagens a partir de R$ 100,00',
     image: 'https://i.ibb.co/7NC8WzMG/remocao-de-tattoo-8413548c19ec1cde9117056770673418-1024-1024.jpg'
   }
 ];
